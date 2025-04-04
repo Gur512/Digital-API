@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Digital-queueAPI.DAL\Digital-queueAPI.DAL.csproj" />
+    <ProjectReference Include="..\Digital-queueAPI.Models\Digital-queueAPI.Models.csproj" />
+  </ItemGroup>
+
 </Project>
