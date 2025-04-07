@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Digital-queueAPI.Models\Digital-queueAPI.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Digital-queueAPI.BLL\Digital-queueAPI.BLL.csproj" />
     <ProjectReference Include="..\Digital-queueAPI.DAL\Digital-queueAPI.DAL.csproj" />
     <ProjectReference Include="..\Digital-queueAPI.Models\Digital-queueAPI.Models.csproj" />
