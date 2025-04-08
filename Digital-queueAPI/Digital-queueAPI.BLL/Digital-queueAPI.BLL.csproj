@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Digital-queueAPI.DAL\Digital-queueAPI.DAL.csproj" />
     <ProjectReference Include="..\Digital-queueAPI.Models\Digital-queueAPI.Models.csproj" />
   </ItemGroup>

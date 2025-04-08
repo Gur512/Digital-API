@@ -1,6 +1,6 @@
-
 using Digital_queueAPI.BLL;
 using Digital_queueAPI.DAL;
+using Digital_queueAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Digital_queueAPI
@@ -33,6 +33,8 @@ namespace Digital_queueAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddAutoMapper(c => {c.CreateMap<Notification, NotificationDTOs>().ReverseMap(); },AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 
