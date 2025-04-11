@@ -16,8 +16,8 @@ namespace Digital_queueAPI.Controllers {
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<NotificationDTOs>> GetById(int id) {
-            NotificationDTOs? notification = await _notificationService.GetNotificationByIdAsync(id);
+        public async Task<ActionResult<NotificationDTO>> GetById(int id) {
+            NotificationDTO? notification = await _notificationService.GetNotificationByIdAsync(id);
             if (notification == null) {
                 return NotFound();
             }
@@ -25,19 +25,19 @@ namespace Digital_queueAPI.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<NotificationDTOs>>> GetAll() {
-            List<NotificationDTOs> notifications = await _notificationService.GetAllNotificationsAsync();
+        public async Task<ActionResult<List<NotificationDTO>>> GetAll() {
+            List<NotificationDTO> notifications = await _notificationService.GetAllNotificationsAsync();
             return Ok(notifications);
         }
 
         [HttpPost]
-        public async Task<ActionResult<NotificationDTOs>> Create([FromBody] NotificationDTOs notificationDto) {
+        public async Task<ActionResult<NotificationDTO>> Create([FromBody] NotificationDTO notificationDto) {
             await _notificationService.CreateNotificationAsync(notificationDto);
             return CreatedAtAction(nameof(GetById), new { id = notificationDto.UserId }, notificationDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] NotificationDTOs notificationDto) {
+        public async Task<IActionResult> Update(int id, [FromBody] NotificationDTO notificationDto) {
             try {
                 await _notificationService.UpdateNotificationAsync(id, notificationDto);
             }

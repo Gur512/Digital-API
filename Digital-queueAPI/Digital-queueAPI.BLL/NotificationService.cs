@@ -12,22 +12,22 @@ namespace Digital_queueAPI.BLL {
             _mapper = mapper;
         }
 
-        public async Task<List<NotificationDTOs>> GetAllNotificationsAsync() {
+        public async Task<List<NotificationDTO>> GetAllNotificationsAsync() {
             List<Notification> notifications = await _repository.GetAllAsync();
-            return _mapper.Map<List<NotificationDTOs>>(notifications);
+            return _mapper.Map<List<NotificationDTO>>(notifications);
         }
 
-        public async Task<NotificationDTOs?> GetNotificationByIdAsync(int id) {
+        public async Task<NotificationDTO?> GetNotificationByIdAsync(int id) {
             Notification? notification = await _repository.GetByIdAsync(id);
-            return _mapper.Map<NotificationDTOs>(notification);
+            return _mapper.Map<NotificationDTO>(notification);
         }
 
-        public async Task CreateNotificationAsync(NotificationDTOs notificationDto) {
+        public async Task CreateNotificationAsync(NotificationDTO notificationDto) {
             Notification notification = _mapper.Map<Notification>(notificationDto);
             await _repository.AddAsync(notification);
         }
 
-        public async Task UpdateNotificationAsync(int id, NotificationDTOs notificationDto) {
+        public async Task UpdateNotificationAsync(int id, NotificationDTO notificationDto) {
             bool exists = await _repository.ExistsAsync(id);
             if (!exists) {
                 throw new Exception("Notification not found.");

@@ -1,9 +1,9 @@
 ﻿namespace Digital_queueAPI.Models {
-        public enum QueueEntryStatus {
-            Waiting,
-            Served,
-            Cancelled
-        }
+    public enum QueueEntryStatus {
+        Waiting,
+        Served,
+        Cancelled
+    }
     public class QueueEntry {
         public int EntryId { get; set; }
         public int Position { get; set; }

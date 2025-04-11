@@ -3,7 +3,7 @@ using Digital_queueAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Digital_queueAPI.DAL {
-    public class AppDbContext : DbContext {
+    public class AppDbContext : DbContext    {
         public DbSet<User> Users { get; set; }
         public DbSet<Queue> Queues { get; set; }
         public DbSet<QueueEntry> QueueEntries { get; set; }

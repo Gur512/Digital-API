@@ -1,4 +1,5 @@
-﻿using Digital_queueAPI.BLL;
+﻿using AutoMapper;
+using Digital_queueAPI.BLL;
 using Digital_queueAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,14 +8,16 @@ namespace Digital_queueAPI.Controllers {
     [ApiController]
     public class QueueController : ControllerBase {
         private readonly QueueService _queueService;
+        private readonly IMapper _mapper;
 
-        public QueueController(QueueService queueService) {
+        public QueueController(QueueService queueService, IMapper mapper) {
             _queueService = queueService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Queue>> GetById(int id) {
-            Queue? queue = await _queueService.GetQueueByIdAsync(id);
+        public async Task<ActionResult<QueueDTO>> GetById(int id) {
+            QueueDTO? queue = await _queueService.GetQueueByIdAsync(id);
             if (queue == null) {
                 return NotFound();
             }
@@ -22,35 +25,32 @@ namespace Digital_queueAPI.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Queue>>> GetAll() {
-            List<Queue> queues = await _queueService.GetAllQueuesAsync();
+        public async Task<ActionResult<List<QueueDTO>>> GetAll() {
+            List<QueueDTO> queues = await _queueService.GetAllQueuesAsync();
             return Ok(queues);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Queue>> Create(Queue queue) {
-            await _queueService.CreateQueueAsync(queue);
-            return CreatedAtAction(nameof(GetById), new { id = queue.QueueId }, queue);
+        public async Task<ActionResult<QueueDTO>> Create([FromBody] QueueDTO queueDto) {
+            Queue createdQueue = await _queueService.CreateQueueAsync(queueDto);
+            QueueDTO createdQueueDto = _mapper.Map<QueueDTO>(createdQueue);
+            return CreatedAtAction(nameof(GetById), new { id = createdQueue.QueueId }, createdQueueDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Queue queue) {
-            if (id != queue.QueueId) {
-                return BadRequest("Queue ID mismatch.");
-            }
-
+        public async Task<IActionResult> Update(int id, [FromBody] QueueDTO queueDto) {
             bool exists = await _queueService.QueueExistsAsync(id);
             if (!exists) {
                 return NotFound();
             }
 
-            await _queueService.UpdateQueueAsync(queue);
+            await _queueService.UpdateQueueAsync(id, queueDto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
-            Queue? queue = await _queueService.GetQueueByIdAsync(id);
+            QueueDTO? queue = await _queueService.GetQueueByIdAsync(id);
             if (queue == null) {
                 return NotFound();
             }
